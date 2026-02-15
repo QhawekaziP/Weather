@@ -774,10 +774,4 @@ h3 {
     }
 }
 
-/* Dark Mode Support (already dark, but ensuring consistency) */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-primary: #0B131E;
-        --text-primary: #FFFFFF;
-    }
 }
