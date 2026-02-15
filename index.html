@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Weather app that returns live forecasts">
+    <title>Weather Now</title>
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Weather Now</h1>
+            <div class="units-dropdown" id="unitsDropdown">
+                <button class="units-btn" id="unitsBtn" aria-expanded="false" aria-haspopup="true">
+                    Units ▼
+                </button>
+                <div class="dropdown-content" id="dropdownContent">
+                    <div class="unit-section">
+                        <h4>Temperature</h4>
+                        <div class="unit-option">
+                            <input type="radio" name="tempUnit" id="celsius" value="celsius" checked>
+                            <label for="celsius">Celsius (°C)</label>
+                        </div>
+                        <div class="unit-option">
+                            <input type="radio" name="tempUnit" id="fahrenheit" value="fahrenheit">
+                            <label for="fahrenheit">Fahrenheit (°F)</label>
+                        </div>
+                    </div>
+                    <div class="unit-section">
+                        <h4>Wind Speed</h4>
+                        <div class="unit-option">
+                            <input type="radio" name="windUnit" id="kmh" value="kmh" checked>
+                            <label for="kmh">km/h</label>
+                        </div>
+                        <div class="unit-option">
+                            <input type="radio" name="windUnit" id="mph" value="mph">
+                            <label for="mph">mph</label>
+                        </div>
+                    </div>
+                    <div class="unit-section">
+                        <h4>Precipitation</h4>
+                        <div class="unit-option">
+                            <input type="radio" name="precipUnit" id="mm" value="mm" checked>
+                            <label for="mm">Millimeters (mm)</label>
+                        </div>
+                        <div class="unit-option">
+                            <input type="radio" name="precipUnit" id="inches" value="inches">
+                            <label for="inches">Inches (in)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="search-section">
+                <h2>How's the sky looking today?</h2>
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <input 
+                            type="text" 
+                            class="search-input" 
+                            id="searchInput" 
+                            placeholder="Search for a place..."
+                            autocomplete="off"
+                            aria-label="Search for a location"
+                        >
+                        <div class="suggestions-dropdown" id="suggestions"></div>
+                    </div>
+                    <button class="search-btn" id="searchBtn">Search</button>
+                </div>
+            </section>
+
+            <div class="loading-state hidden" id="loadingState">
+                <div class="spinner"></div>
+                <p>Loading weather data...</p>
+            </div>
+
+            <div class="error-state hidden" id="errorState">
+                <h3>Something went wrong</h3>
+                <p>We couldn't connect to the server (API error). Please try again in a few moments.</p>
+                <button class="retry-btn" id="retryBtn">Retry</button>
+            </div>
+
+            <div class="no-results-state hidden" id="noResultsState">
+                <h3>No search result found!</h3>
+                <p>Try searching for a different location.</p>
+            </div>
+
+            <div id="weatherContent">
+                <!-- Main Weather Card -->
+                <div class="weather-card" id="mainWeatherCard">
+                    <div class="location-info">
+                        <div class="location-name" id="locationName">Berlin, Germany</div>
+                        <div class="date" id="currentDate">Tuesday, Aug 5, 2025</div>
+                    </div>
+                    <div class="current-temp" id="currentTemp">20°</div>
+                    <div class="weather-metrics" id="weatherMetrics">
+                        <div class="metric-item">
+                            <div class="metric-label">Feels Like</div>
+                            <div class="metric-value" id="feelsLike">18°</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">Humidity</div>
+                            <div class="metric-value" id="humidity">46%</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">Wind</div>
+                            <div class="metric-value" id="wind">14 km/h</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">Precipitation</div>
+                            <div class="metric-value" id="precipitation">0 mm</div>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="daily-forecast">
+                    <h3>Daily forecast</h3>
+                    <div class="forecast-grid" id="dailyForecast"></div>
+                </section>
+
+                <section class="hourly-forecast">
+                    <h3>Hourly forecast</h3>
+                    <div class="day-selector" id="daySelector"></div>
+                    <div class="hourly-grid" id="hourlyGrid"></div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script></script>
+</html>
+        
