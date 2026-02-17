@@ -327,6 +327,7 @@ h3 {
 
 @media (min-width: 768px) {
     .weather-card {
+        background: url('.../images/bg-today-large.svg');
         padding: 25px;
     }
 }
