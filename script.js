@@ -1,3 +1,210 @@
+// Weather code to icon mapping (WMO Weather interpretation codes)
+const weatherIcons = {
+    // Clear
+    0: { day: 'clear-day', night: 'clear-night', label: 'Clear sky' },
+    
+    // Partly cloudy
+    1: { day: 'partly-cloudy-day', night: 'partly-cloudy-night', label: 'Mainly clear' },
+    2: { day: 'partly-cloudy-day', night: 'partly-cloudy-night', label: 'Partly cloudy' },
+    3: { day: 'cloudy', night: 'cloudy', label: 'Overcast' },
+    
+    // Fog
+    45: { day: 'fog', night: 'fog', label: 'Fog' },
+    48: { day: 'fog', night: 'fog', label: 'Rime fog' },
+    
+    // Rain
+    51: { day: 'rain', night: 'rain', label: 'Light drizzle' },
+    53: { day: 'rain', night: 'rain', label: 'Moderate drizzle' },
+    55: { day: 'rain', night: 'rain', label: 'Dense drizzle' },
+    56: { day: 'rain', night: 'rain', label: 'Freezing drizzle' },
+    57: { day: 'rain', night: 'rain', label: 'Dense freezing drizzle' },
+    61: { day: 'rain', night: 'rain', label: 'Slight rain' },
+    63: { day: 'rain', night: 'rain', label: 'Moderate rain' },
+    65: { day: 'rain', night: 'rain', label: 'Heavy rain' },
+    66: { day: 'rain', night: 'rain', label: 'Freezing rain' },
+    67: { day: 'rain', night: 'rain', label: 'Heavy freezing rain' },
+    
+    // Snow
+    71: { day: 'snow', night: 'snow', label: 'Slight snow' },
+    73: { day: 'snow', night: 'snow', label: 'Moderate snow' },
+    75: { day: 'snow', night: 'snow', label: 'Heavy snow' },
+    77: { day: 'snow', night: 'snow', label: 'Snow grains' },
+    
+    // Showers
+    80: { day: 'rain', night: 'rain', label: 'Slight showers' },
+    81: { day: 'rain', night: 'rain', label: 'Moderate showers' },
+    82: { day: 'rain', night: 'rain', label: 'Violent showers' },
+    
+    // Thunderstorm
+    95: { day: 'thunderstorm', night: 'thunderstorm', label: 'Thunderstorm' },
+    96: { day: 'thunderstorm', night: 'thunderstorm', label: 'Thunderstorm with hail' },
+    99: { day: 'thunderstorm', night: 'thunderstorm', label: 'Heavy thunderstorm with hail' }
+};
+
+// Helper function to determine if it's day or night
+function isDayTime(currentHour) {
+    return currentHour >= 6 && currentHour < 18; // 6 AM to 6 PM
+}
+
+// Get icon based on weather code and time
+function getWeatherIcon(weatherCode, currentHour = new Date().getHours()) {
+    const iconSet = weatherIcons[weatherCode] || weatherIcons[0];
+    const timeOfDay = isDayTime(currentHour) ? 'day' : 'night';
+    return iconSet[timeOfDay] || iconSet.day || 'cloudy';
+}
+
+// Get icon HTML
+function getIconHTML(iconName, size = '24', className = 'weather-icon') {
+    return `<img src="assets/icons/${iconName}.svg" class="${className}" width="${size}" height="${size}" alt="Weather icon">`;
+}
+
+// Update the state object to include weather codes
+const state = {
+    currentLocation: { name: 'Berlin, Germany', lat: 52.52, lon: 13.405 },
+    weatherData: null,
+    unit: 'celsius',
+    windUnit: 'kmh',
+    precipUnit: 'mm',
+    selectedDay: 0,
+    isLoading: false,
+    searchResults: [],
+    error: null,
+    currentHour: new Date().getHours() // Add current hour for day/night detection
+};
+
+// Update the renderWeather function
+function renderWeather() {
+    if (!state.weatherData) return;
+
+    const data = state.weatherData;
+    const current = data.current_weather;
+    const hourly = data.hourly;
+    const daily = data.daily;
+    const currentHour = new Date().getHours();
+
+    // Get current weather icon
+    const currentWeatherCode = current.weathercode || 0;
+    const currentIcon = getWeatherIcon(currentWeatherCode, currentHour);
+
+    // Update location and date with icon
+    elements.locationName.innerHTML = `
+        <div class="location-with-icon">
+            ${getIconHTML(currentIcon, '32', 'current-weather-icon')}
+            <span>${state.currentLocation.name}</span>
+        </div>
+    `;
+    
+    elements.currentDate.textContent = formatDate(new Date().toISOString().split('T')[0]);
+
+    // Update current weather
+    elements.currentTemp.innerHTML = `
+        <span class="temp-value">${Math.round(current.temperature)}°</span>
+        ${getIconHTML(currentIcon, '48', 'large-weather-icon')}
+    `;
+    
+    // Get feels like (using temperature for now, can be enhanced)
+    elements.feelsLike.textContent = `${Math.round(current.temperature)}°`;
+    
+    // Get humidity (average of next few hours)
+    const currentHumidity = hourly.relativehumidity_2m[currentHour] || 46;
+    elements.humidity.textContent = `${currentHumidity}%`;
+    
+    // Update wind
+    elements.wind.textContent = `${Math.round(current.windspeed)} ${state.windUnit}`;
+    
+    // Update precipitation
+    const currentPrecip = hourly.precipitation[currentHour] || 0;
+    elements.precipitation.textContent = `${currentPrecip.toFixed(1)} ${state.precipUnit === 'mm' ? 'mm' : 'in'}`;
+
+    // Render daily forecast
+    renderDailyForecast(daily);
+
+    // Render day selector and hourly forecast
+    renderDaySelector(daily);
+    renderHourlyForecast(hourly, state.selectedDay);
+}
+
+// Update renderDailyForecast function
+function renderDailyForecast(daily) {
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const today = new Date().getDay();
+    
+    let html = '';
+    for (let i = 0; i < 7; i++) {
+        const dayIndex = (today + i) % 7;
+        const dayName = days[dayIndex];
+        const maxTemp = Math.round(daily.temperature_2m_max[i]);
+        const minTemp = Math.round(daily.temperature_2m_min[i]);
+        const weatherCode = daily.weathercode[i];
+        
+        // Use noon hour for day/night detection in forecast
+        const iconName = getWeatherIcon(weatherCode, 12); // Assume noon for forecast
+        
+        html += `
+            <div class="forecast-day-card ${i === state.selectedDay ? 'active' : ''}" data-day-index="${i}" tabindex="0" role="button" aria-label="${dayName}'s forecast">
+                <div class="forecast-day">${dayName}</div>
+                ${getIconHTML(iconName, '32', 'forecast-icon')}
+                <div class="forecast-temp">${maxTemp}°</div>
+                <div class="forecast-temp-range">
+                    <span class="temp-high">${maxTemp}°</span>
+                    <span class="temp-low">${minTemp}°</span>
+                </div>
+            </div>
+        `;
+    }
+    
+    elements.dailyForecast.innerHTML = html;
+
+    // Add click handlers
+    document.querySelectorAll('.forecast-day-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const dayIndex = parseInt(card.dataset.dayIndex);
+            state.selectedDay = dayIndex;
+            renderDaySelector(state.weatherData.daily);
+            renderHourlyForecast(state.weatherData.hourly, dayIndex);
+            
+            document.querySelectorAll('.forecast-day-card').forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+        });
+
+        card.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                card.click();
+            }
+        });
+    });
+}
+
+// Update renderHourlyForecast function
+function renderHourlyForecast(hourly, dayIndex) {
+    const hoursPerDay = 24;
+    const startIndex = dayIndex * hoursPerDay;
+    let html = '';
+
+    for (let i = 0; i < 8; i++) {
+        const hourIndex = startIndex + i;
+        if (hourIndex >= hourly.time.length) break;
+
+        const hour = new Date(hourly.time[hourIndex]).getHours();
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const hour12 = hour % 12 || 12;
+        const temp = Math.round(hourly.temperature_2m[hourIndex]);
+        const weatherCode = hourly.weathercode[hourIndex];
+        const iconName = getWeatherIcon(weatherCode, hour);
+
+        html += `
+            <div class="hour-card">
+                <div class="hour-time">${hour12} ${ampm}</div>
+                ${getIconHTML(iconName, '20', 'hourly-icon')}
+                <div class="hour-temp">${temp}°</div>
+            </div>
+        `;
+    }
+
+    elements.hourlyGrid.innerHTML = html;
+}
+
 const WeatherAPI = {
     baseURL: 'https://api.open-meteo.com/v1',
     
