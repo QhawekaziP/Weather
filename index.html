@@ -92,11 +92,19 @@
             <div id="weatherContent">
                 <!-- Main Weather Card -->
                 <div class="weather-card" id="mainWeatherCard">
-                    <div class="location-info">
-                        <div class="location-name" id="locationName">Berlin, Germany</div>
-                        <div class="date" id="currentDate">Tuesday, Aug 5, 2025</div>
-                    </div>
-                    <div class="current-temp" id="currentTemp">20°</div>
+    <div class="location-info">
+        <div class="location-name" id="locationName">
+            <div class="location-with-icon">
+                <img src="assets/icons/clear-day.svg" class="current-weather-icon" width="32" height="32" alt="Weather icon">
+                <span>Cape Town, South Africa</span>
+            </div>
+        </div>
+        <div class="date" id="currentDate">Tuesday, Aug 5, 2025</div>
+    </div>
+    <div class="current-temp" id="currentTemp">
+        <span class="temp-value">20°</span>
+        <img src="assets/icons/clear-day.svg" class="large-weather-icon" width="48" height="48" alt="Weather icon">
+    </div>                  
                     <div class="weather-metrics" id="weatherMetrics">
                         <div class="metric-item">
                             <div class="metric-label">Feels Like</div>
