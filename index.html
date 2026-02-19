@@ -90,32 +90,48 @@
             </div>
 
             <div id="weatherContent">
-                <!-- Main Weather Card -->
-                <div class="weather-card" id="mainWeatherCard">
-                    <div class="location-info">
-                        <div class="location-name" id="locationName">Berlin, Germany</div>
-                        <div class="date" id="currentDate">Tuesday, Aug 5, 2025</div>
-                    </div>
-                    <div class="current-temp" id="currentTemp">20°</div>
-                    <div class="weather-metrics" id="weatherMetrics">
-                        <div class="metric-item">
-                            <div class="metric-label">Feels Like</div>
-                            <div class="metric-value" id="feelsLike">18°</div>
-                        </div>
-                        <div class="metric-item">
-                            <div class="metric-label">Humidity</div>
-                            <div class="metric-value" id="humidity">46%</div>
-                        </div>
-                        <div class="metric-item">
-                            <div class="metric-label">Wind</div>
-                            <div class="metric-value" id="wind">14 km/h</div>
-                        </div>
-                        <div class="metric-item">
-                            <div class="metric-label">Precipitation</div>
-                            <div class="metric-value" id="precipitation">0 mm</div>
-                        </div>
-                    </div>
-                </div>
+      <!-- Main Weather Card -->
+<div class="weather-card" id="mainWeatherCard">
+    <div class="location-info">
+        <div class="location-name" id="locationName">
+            <div class="location-with-icon">
+                <img src="assets/icons/icon-sunny.webp" 
+                     class="current-weather-icon" 
+                     width="32" height="32" 
+                     alt="Current weather"
+                     loading="eager">
+                <span>Berlin, Germany</span>
+            </div>
+        </div>
+        <div class="date" id="currentDate">Tuesday, Aug 5, 2025</div>
+    </div>
+    <div class="current-temp" id="currentTemp">
+        <span class="temp-value">20°</span>
+        <img src="assets/icons/icon-sunny.webp" 
+             class="large-weather-icon" 
+             width="48" height="48" 
+             alt="Current temperature icon"
+             loading="eager">
+    </div>
+    <div class="weather-metrics" id="weatherMetrics">
+        <div class="metric-item">
+            <div class="metric-label">Feels Like</div>
+            <div class="metric-value" id="feelsLike">18°</div>
+        </div>
+        <div class="metric-item">
+            <div class="metric-label">Humidity</div>
+            <div class="metric-value" id="humidity">46%</div>
+        </div>
+        <div class="metric-item">
+            <div class="metric-label">Wind</div>
+            <div class="metric-value" id="wind">14 km/h</div>
+        </div>
+        <div class="metric-item">
+            <div class="metric-label">Precipitation</div>
+            <div class="metric-value" id="precipitation">0 mm</div>
+        </div>
+    </div>
+</div>
 
                 <section class="daily-forecast">
                     <h3>Daily forecast</h3>
