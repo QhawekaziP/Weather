@@ -1,4 +1,102 @@
 
+.weather-icon {
+    filter: brightness(0) invert(1); /* Makes icons white */
+    transition: transform 0.2s ease;
+}
+
+.current-weather-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+}
+
+.large-weather-icon {
+    width: 48px;
+    height: 48px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.forecast-icon {
+    width: 32px;
+    height: 32px;
+    margin: 8px auto;
+    display: block;
+}
+
+.hourly-icon {
+    width: 20px;
+    height: 20px;
+    margin: 4px auto;
+    display: block;
+}
+
+.location-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.current-temp {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.temp-value {
+    font-size: clamp(48px, 15vw, 64px);
+    font-variation-settings: 'wght' 700;
+}
+
+.forecast-day-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hour-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 6px;
+}
+
+/* Hover effects for icons */
+.forecast-day-card:hover .weather-icon,
+.hour-card:hover .weather-icon {
+    transform: scale(1.1);
+}
+
+/* Animation for rain/thunderstorm icons */
+@keyframes rain-drop {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(2px); }
+}
+
+[src*="rain.svg"] .weather-icon,
+[src*="thunderstorm.svg"] .weather-icon {
+    animation: rain-drop 2s ease infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .current-weather-icon {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .large-weather-icon {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .forecast-icon {
+        width: 24px;
+        height: 24px;
+    }
+}
+
 @font-face {
     font-family: 'DM Sans';
     src: url('data:application/font-woff2;base64,dummy-base64-font-data') format('woff2-variations');
