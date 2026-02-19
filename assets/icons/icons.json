@@ -1,0 +1,45 @@
+{
+  "version": "1.0",
+  "icons": [
+    {
+      "file": "icon-sunny.webp",
+      "description": "Clear sky / Sunny",
+      "weatherCodes": [0]
+    },
+    {
+      "file": "icon-partly-cloudy.webp",
+      "description": "Partly cloudy",
+      "weatherCodes": [1, 2]
+    },
+    {
+      "file": "icon-overcast.webp",
+      "description": "Overcast / Cloudy",
+      "weatherCodes": [3]
+    },
+    {
+      "file": "icon-fog.webp",
+      "description": "Fog / Mist",
+      "weatherCodes": [45, 48]
+    },
+    {
+      "file": "icon-drizzle.webp",
+      "description": "Drizzle / Light rain",
+      "weatherCodes": [51, 53, 55, 56, 57]
+    },
+    {
+      "file": "icon-rain.webp",
+      "description": "Rain / Showers",
+      "weatherCodes": [61, 63, 65, 66, 67, 80, 81, 82]
+    },
+    {
+      "file": "icon-snow.webp",
+      "description": "Snow",
+      "weatherCodes": [71, 73, 75, 77, 85, 86]
+    },
+    {
+      "file": "icon-storm.webp",
+      "description": "Thunderstorm",
+      "weatherCodes": [95, 96, 99]
+    }
+  ]
+}
