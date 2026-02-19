@@ -195,36 +195,44 @@ h3 {
     font-size: 15px;
 }
 
-/* Search Section */
+/* Search Section - Resized and Centered */
 .search-section {
-    margin-bottom: 24px;
+    margin-bottom: 30px;
     position: relative;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.search-section h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 18px;
 }
 
 .search-container {
     display: flex;
     gap: 10px;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 .search-input-wrapper {
-    flex: 1;
-    min-width: 200px;
+    flex: 0 1 300px; /* Fixed width, doesn't grow, can shrink to 300px */
     position: relative;
 }
 
 .search-input {
     width: 100%;
-    padding: 14px 18px;
+    padding: 12px 20px;
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 30px;
     color: var(--text-primary);
-    font-size: 16px;
+    font-size: 15px;
     transition: var(--transition);
     font-family: 'DM Sans', sans-serif;
-    -webkit-appearance: none;
-    appearance: none;
 }
 
 .search-input:focus {
@@ -235,29 +243,21 @@ h3 {
 
 .search-input::placeholder {
     color: var(--text-secondary);
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .search-btn {
-    padding: 14px 24px;
+    padding: 12px 25px;
     background-color: var(--accent-blue);
     color: white;
     border: none;
     border-radius: 30px;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
     transition: var(--transition);
-    font-variation-settings: 'wght' 500;
+    white-space: nowrap;
     font-family: 'DM Sans', sans-serif;
-    min-width: 100px;
-    -webkit-tap-highlight-color: transparent;
-}
-
-@media (max-width: 480px) {
-    .search-btn {
-        width: 100%;
-        padding: 16px 24px;
-    }
 }
 
 .search-btn:hover {
@@ -269,12 +269,31 @@ h3 {
     transform: translateY(0);
 }
 
-.search-btn:focus-visible {
-    outline: 2px solid white;
-    outline-offset: 2px;
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .search-section {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+    
+    .search-container {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .search-input-wrapper {
+        flex: 1;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .search-btn {
+        width: 100%;
+        max-width: 200px;
+    }
 }
 
-/* Search Suggestions Dropdown */
+/* Suggestions dropdown positioning */
 .suggestions-dropdown {
     position: absolute;
     top: 100%;
@@ -282,12 +301,13 @@ h3 {
     right: 0;
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
-    margin-top: 8px;
-    max-height: 300px;
+    border-radius: 12px;
+    margin-top: 5px;
+    max-height: 250px;
     overflow-y: auto;
-    z-index: 50;
+    z-index: 1000;
     display: none;
+    width: 100%;
 }
 
 .suggestions-dropdown.show {
@@ -295,21 +315,19 @@ h3 {
 }
 
 .suggestion-item {
-    padding: 14px 18px;
+    padding: 12px 18px;
     cursor: pointer;
     transition: var(--transition);
     border-bottom: 1px solid var(--border-color);
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .suggestion-item:last-child {
     border-bottom: none;
 }
 
-.suggestion-item:hover,
-.suggestion-item:focus {
+.suggestion-item:hover {
     background-color: var(--card-bg);
-    outline: none;
 }
 
 .suggestion-item:focus-visible {
@@ -335,6 +353,47 @@ h3 {
 
 .location-info {
     margin-bottom: 16px;
+}
+
+.location-info.with-bg-image {
+    position: relative;
+    isolation: isolate;
+    padding: 20px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.location-info.with-bg-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('assets/images/weather-scene.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+.location-info.with-bg-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(145deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+    z-index: -1;
+}
+
+.location-info.with-bg-image .location-name,
+.location-info.with-bg-image .date {
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .location-name {
