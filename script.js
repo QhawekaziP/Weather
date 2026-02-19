@@ -65,6 +65,25 @@ const elements = {
     retryBtn: document.getElementById('retryBtn')
 };
 
+// Weather Icon Mapping
+function getWeatherIcon(weatherCode, isDay = true) {
+    // Map weather codes to SVG icons in assets/icons folder
+    if (weatherCode === 0) {
+        return isDay ? 'assets/icons/clear-day.svg' : 'assets/icons/clear-night.svg';
+    } else if (weatherCode >= 1 && weatherCode <= 3) {
+        return isDay ? 'assets/icons/partly-cloudy-day.svg' : 'assets/icons/partly-cloudy-night.svg';
+    } else if (weatherCode === 45 || weatherCode === 48) {
+        return 'assets/icons/fog.svg';
+    } else if (weatherCode >= 51 && weatherCode <= 67 || weatherCode >= 80 && weatherCode <= 82) {
+        return 'assets/icons/rain.svg';
+    } else if (weatherCode >= 71 && weatherCode <= 77 || weatherCode === 85 || weatherCode === 86) {
+        return 'assets/icons/snow.svg';
+    } else if (weatherCode >= 95 && weatherCode <= 99) {
+        return 'assets/icons/thunderstorm.svg';
+    }
+    return isDay ? 'assets/icons/clear-day.svg' : 'assets/icons/clear-night.svg';
+}
+
 // Utility Functions
 function debounce(func, wait) {
     let timeout;
@@ -135,6 +154,14 @@ function renderWeather() {
     elements.locationName.textContent = state.currentLocation.name;
     elements.currentDate.textContent = formatDate(new Date().toISOString().split('T')[0]);
 
+    // Update current weather icon
+    const mainWeatherIcon = document.getElementById('mainWeatherIcon');
+    const isDay = current.is_day === 1;
+    if (mainWeatherIcon) {
+        mainWeatherIcon.src = getWeatherIcon(current.weathercode, isDay);
+        mainWeatherIcon.alt = 'Current weather';
+    }
+
     // Update current weather
     elements.currentTemp.textContent = `${Math.round(current.temperature)}°`;
     
@@ -171,10 +198,13 @@ function renderDailyForecast(daily) {
         const dayName = days[dayIndex];
         const maxTemp = Math.round(daily.temperature_2m_max[i]);
         const minTemp = Math.round(daily.temperature_2m_min[i]);
+        const weatherCode = daily.weathercode[i];
+        const iconPath = getWeatherIcon(weatherCode, true);
         
         html += `
             <div class="forecast-day-card ${i === state.selectedDay ? 'active' : ''}" data-day-index="${i}" tabindex="0" role="button" aria-label="${dayName}'s forecast">
                 <div class="forecast-day">${dayName}</div>
+                <img src="${iconPath}" alt="Weather icon" class="forecast-icon">
                 <div class="forecast-temp">${maxTemp}°</div>
                 <div class="forecast-temp-range">
                     <span class="temp-high">${maxTemp}°</span>
@@ -256,10 +286,14 @@ function renderHourlyForecast(hourly, dayIndex) {
         const ampm = hour >= 12 ? 'PM' : 'AM';
         const hour12 = hour % 12 || 12;
         const temp = Math.round(hourly.temperature_2m[hourIndex]);
+        const weatherCode = hourly.weathercode[hourIndex];
+        const isDay = hour >= 6 && hour < 20;
+        const iconPath = getWeatherIcon(weatherCode, isDay);
 
         html += `
             <div class="hour-card">
                 <div class="hour-time">${hour12} ${ampm}</div>
+                <img src="${iconPath}" alt="Weather icon" class="hour-icon">
                 <div class="hour-temp">${temp}°</div>
             </div>
         `;
