@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Weather Now</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href=".../images/favicon.png">
+    <link rel="icon" type="image/png" href="...images/favicon.png">
 </head>
 <body>
     <div class="container">
@@ -56,24 +56,25 @@
 
         <!-- Main Content -->
         <main>
-            <!-- Search Section -->
-            <section class="search-section">
-                <h2>How's the sky looking today?</h2>
-                <div class="search-container">
-                    <div class="search-input-wrapper">
-                        <input 
-                            type="text" 
-                            class="search-input" 
-                            id="searchInput" 
-                            placeholder="Search for a place..."
-                            autocomplete="off"
-                            aria-label="Search for a location"
-                        >
-                        <div class="suggestions-dropdown" id="suggestions"></div>
-                    </div>
-                    <button class="search-btn" id="searchBtn">Search</button>
-                </div>
-            </section>
+            
+<!-- Search Section -->
+<section class="search-section">
+    <h2>How's the sky looking today?</h2>
+    <div class="search-container">
+        <div class="search-input-wrapper">
+            <input 
+                type="text" 
+                class="search-input" 
+                id="searchInput" 
+                placeholder="Search for a place..."
+                autocomplete="off"
+                aria-label="Search for a location"
+            >
+            <div class="suggestions-dropdown" id="suggestions"></div>
+        </div>
+        <button class="search-btn" id="searchBtn">Search</button>
+    </div>
+</section>
 
             <!-- Loading State -->
             <div class="loading-state hidden" id="loadingState">
@@ -98,11 +99,16 @@
             <div id="weatherContent">
                 <!-- Main Weather Card -->
                 <div class="weather-card" id="mainWeatherCard">
-                    <div class="location-info">
-                        <div class="location-name" id="locationName">Berlin, Germany</div>
-                        <div class="date" id="currentDate">Tuesday, Aug 5, 2025</div>
+                    <div class="location-info weather-now">
+                        <div class="weather-now-left">
+                            <div class="location-name" id="locationName">Cape Town, South Africa</div>
+                            <div class="date" id="currentDate">Thursday, Feb 19, 2026</div>
+                        </div>
+                        <div class="weather-now-right">
+                            <img src="assets/icons/clear-day.svg" alt="Current weather" class="main-weather-icon" id="mainWeatherIcon">
+                            <div class="current-temp" id="currentTemp">20°</div>
+                        </div>
                     </div>
-                    <div class="current-temp" id="currentTemp">20°</div>
                     <div class="weather-metrics" id="weatherMetrics">
                         <div class="metric-item">
                             <div class="metric-label">Feels Like</div>
