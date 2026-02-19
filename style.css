@@ -1,102 +1,4 @@
-
-.weather-icon {
-    filter: brightness(0) invert(1); /* Makes icons white */
-    transition: transform 0.2s ease;
-}
-
-.current-weather-icon {
-    width: 32px;
-    height: 32px;
-    margin-right: 8px;
-}
-
-.large-weather-icon {
-    width: 48px;
-    height: 48px;
-    margin-left: 10px;
-    vertical-align: middle;
-}
-
-.forecast-icon {
-    width: 32px;
-    height: 32px;
-    margin: 8px auto;
-    display: block;
-}
-
-.hourly-icon {
-    width: 20px;
-    height: 20px;
-    margin: 4px auto;
-    display: block;
-}
-
-.location-with-icon {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.current-temp {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.temp-value {
-    font-size: clamp(48px, 15vw, 64px);
-    font-variation-settings: 'wght' 700;
-}
-
-.forecast-day-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.hour-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 12px 6px;
-}
-
-/* Hover effects for icons */
-.forecast-day-card:hover .weather-icon,
-.hour-card:hover .weather-icon {
-    transform: scale(1.1);
-}
-
-/* Animation for rain/thunderstorm icons */
-@keyframes rain-drop {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(2px); }
-}
-
-[src*="rain.svg"] .weather-icon,
-[src*="thunderstorm.svg"] .weather-icon {
-    animation: rain-drop 2s ease infinite;
-}
-
-/* Responsive adjustments */
-@media (max-width: 480px) {
-    .current-weather-icon {
-        width: 24px;
-        height: 24px;
-    }
-    
-    .large-weather-icon {
-        width: 36px;
-        height: 36px;
-    }
-    
-    .forecast-icon {
-        width: 24px;
-        height: 24px;
-    }
-}
-
+/* Variable Font Implementation */
 @font-face {
     font-family: 'DM Sans';
     src: url('data:application/font-woff2;base64,dummy-base64-font-data') format('woff2-variations');
@@ -105,6 +7,7 @@
     font-display: swap;
 }
 
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -153,6 +56,7 @@ html {
     width: 100%;
 }
 
+/* Header Styles */
 .header {
     display: flex;
     justify-content: space-between;
@@ -416,7 +320,7 @@ h3 {
 
 /* Main Weather Card */
 .weather-card {
-    background: linear-gradient(145deg, var(--card-bg), var(--bg-secondary)) url('../img/bg-today-large.svg');
+    background: linear-gradient(145deg, var(--card-bg), var(--bg-secondary));
     border-radius: 24px;
     padding: 20px;
     margin-bottom: 24px;
@@ -425,7 +329,6 @@ h3 {
 
 @media (min-width: 768px) {
     .weather-card {
-        background: url('.../images/bg-today-large.svg');
         padding: 25px;
     }
 }
@@ -873,286 +776,10 @@ h3 {
     }
 }
 
-}
-
-/* Icon Styles - Add to styles.css */
-
-/* Base icon styles */
-.weather-icon {
-    object-fit: contain;
-    transition: transform 0.2s ease;
-    pointer-events: none; /* Prevents icon from blocking clicks */
-}
-
-/* Current weather icon next to location */
-.current-weather-icon {
-    width: 32px;
-    height: 32px;
-    margin-right: 8px;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-}
-
-/* Large icon next to temperature */
-.large-weather-icon {
-    width: 48px;
-    height: 48px;
-    margin-left: 10px;
-    vertical-align: middle;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-}
-
-/* Forecast day icons */
-.forecast-icon {
-    width: 32px;
-    height: 32px;
-    margin: 8px auto;
-    display: block;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-}
-
-/* Hourly forecast icons */
-.hourly-icon {
-    width: 20px;
-    height: 20px;
-    margin: 4px auto;
-    display: block;
-}
-
-/* Day tab icons */
-.day-tab-icon {
-    width: 16px;
-    height: 16px;
-    margin-left: 4px;
-    vertical-align: middle;
-}
-
-/* Location with icon container */
-.location-with-icon {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Current temperature container */
-.current-temp {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: 16px 0;
-}
-
-.temp-value {
-    font-size: clamp(48px, 15vw, 64px);
-    font-variation-settings: 'wght' 700;
-    line-height: 1;
-}
-
-/* Forecast day card */
-.forecast-day-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 12px 8px;
-    background-color: var(--card-bg);
-    border-radius: 16px;
-    transition: var(--transition);
-    cursor: pointer;
-}
-
-.forecast-day-card:hover {
-    transform: translateY(-4px);
-    background-color: var(--bg-secondary);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.forecast-day-card:hover .weather-icon {
-    transform: scale(1.1);
-}
-
-/* Hour card */
-.hour-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 12px 6px;
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    transition: var(--transition);
-    cursor: pointer;
-}
-
-.hour-card:hover {
-    background-color: var(--bg-secondary);
-    transform: translateY(-2px);
-}
-
-.hour-card:hover .weather-icon {
-    transform: scale(1.1);
-}
-
-/* Day tab with icon */
-.day-tab {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 8px 14px;
-    background-color: var(--card-bg);
-    border-radius: 30px;
-    cursor: pointer;
-    transition: var(--transition);
-    border: 1px solid transparent;
-    font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
-    color: var(--text-primary);
-}
-
-.day-tab:hover {
-    border-color: var(--accent-blue);
-    background-color: var(--bg-secondary);
-}
-
-.day-tab.active {
-    background-color: var(--accent-blue);
-    color: white;
-}
-
-.day-tab.active .day-tab-icon {
-    filter: brightness(0) invert(1); /* Makes icon white on active tab */
-}
-
-/* Animation for rain/storm icons */
-@keyframes gentle-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
-}
-
-.forecast-day-card[class*="rain"] .weather-icon,
-.hour-card[class*="rain"] .weather-icon,
-.forecast-day-card[class*="storm"] .weather-icon,
-.hour-card[class*="storm"] .weather-icon {
-    animation: gentle-float 3s ease infinite;
-}
-
-/* Snow icon subtle animation */
-@keyframes gentle-spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.forecast-day-card[class*="snow"] .weather-icon,
-.hour-card[class*="snow"] .weather-icon {
-    animation: gentle-spin 20s linear infinite;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .current-weather-icon {
-        width: 28px;
-        height: 28px;
+/* Dark Mode Support (already dark, but ensuring consistency) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #0B131E;
+        --text-primary: #FFFFFF;
     }
-    
-    .large-weather-icon {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .forecast-icon {
-        width: 28px;
-        height: 28px;
-    }
-}
-
-@media (max-width: 480px) {
-    .current-weather-icon {
-        width: 24px;
-        height: 24px;
-    }
-    
-    .large-weather-icon {
-        width: 32px;
-        height: 32px;
-    }
-    
-    .forecast-icon {
-        width: 24px;
-        height: 24px;
-        margin: 6px auto;
-    }
-    
-    .hourly-icon {
-        width: 18px;
-        height: 18px;
-    }
-    
-    .day-tab {
-        padding: 6px 10px;
-        font-size: 12px;
-    }
-    
-    .day-tab-icon {
-        width: 14px;
-        height: 14px;
-    }
-}
-
-/* Touch device optimizations */
-@media (hover: none) and (pointer: coarse) {
-    .forecast-day-card:hover,
-    .hour-card:hover {
-        transform: none;
-    }
-    
-    .forecast-day-card:active,
-    .hour-card:active {
-        transform: scale(0.98);
-        background-color: var(--bg-secondary);
-    }
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-    .weather-icon {
-        filter: none;
-    }
-}
-
-/* Loading state for icons */
-.icon-loading {
-    opacity: 0.5;
-    animation: pulse 1.5s ease infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-}
-
-/* Focus states for accessibility */
-.forecast-day-card:focus-visible,
-.hour-card:focus-visible {
-    outline: 2px solid var(--accent-blue);
-    outline-offset: 2px;
-}
-
-/* Tooltip for icon descriptions (optional) */
-[aria-label] {
-    position: relative;
-}
-
-[aria-label]:hover::after {
-    content: attr(aria-label);
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    white-space: nowrap;
-    z-index: 10;
-    border: 1px solid var(--border-color);
-    pointer-events: none;
 }
