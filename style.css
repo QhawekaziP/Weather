@@ -432,6 +432,13 @@ h3 {
 
 .location-info {
     margin-bottom: 16px;
+    position: relative;
+  width: 100%;
+  height: 200px; /* adjust as needed */
+  background: url('.../images/bg-today-large.svg') no-repeat center center;
+  background-size: cover;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .location-name {
